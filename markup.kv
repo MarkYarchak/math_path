@@ -1,0 +1,112 @@
+<ContentNavigationDrawer>:
+
+    ScrollView:
+
+        MDList:
+            id: drawer_list
+            OneLineListItem:
+                text: "Лінійна діаграма"
+                on_press:
+                    root.side_nav_drawer.set_state("close")
+                    root.screen_manager.current = "scr 1"
+
+            OneLineListItem:
+                text: "Гістограми"
+                on_press:
+                    root.side_nav_drawer.set_state("close")
+                    root.screen_manager.current = "scr 2"
+            OneLineListItem:
+                text: "Кругові діаграми"
+                on_press:
+                    root.side_nav_drawer.set_state("close")
+                    root.screen_manager.current = "scr 3"
+
+
+Screen:
+    BoxLayout:
+        orientation: "vertical"
+
+        MDToolbar:
+            id: toolbar
+            pos_hint: {"top": 1}
+            elevation: 10
+            title: "GraphMath"
+            left_action_items: [["menu", lambda x: side_nav_drawer.set_state("open")]]
+
+
+            MDIconButton:
+                id: icon
+                icon: "brightness-4"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_press: app.change_theme_root()
+
+        MDTabs:
+            id:android_tabs
+            on_tab_switch: app.on_tab_switch(*args)
+
+            Tab:
+                # id: tab_theory
+                # name: 'theory'
+                text: "Теорія"
+
+            Tab:
+                # id: tab_practice
+                # name: 'practice'
+                text: "Практика"
+                BoxLayout:
+                    MDLabel:
+                        text: "Title"
+
+
+    NavigationLayout:
+        x: toolbar.height
+
+        ScreenManager:
+            id: screen_manager
+
+            Screen:
+                name: "scr 1"
+
+                MDCard:
+                    padding: "5dp"
+                    size_hint: None, None
+                    size: "350dp", "400dp"
+                    pos_hint: {"center_x": .5, "center_y": .4}
+
+            Screen:
+                name: "scr 2"
+
+                MDCard:
+                    ripple_behavior: True
+                    padding: "8dp"
+                    size_hint: None, None
+                    size: "350dp", "400dp"
+                    pos_hint: {"center_x": .5, "center_y": .4}
+
+            Screen:
+                name: "scr 3"
+
+                MDCard:
+                    padding: "8dp"
+                    size_hint: None, None
+                    size: "350dp", "400dp"
+                    pos_hint: {"center_x": .5, "center_y": .4}
+
+                    MDLabel:
+                        text: "Title"
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+                    MDSeparator:
+                        height: "1dp"
+
+                    MDLabel:
+                        text: "Body"
+
+        MDNavigationDrawer:
+            id: side_nav_drawer
+
+            ContentNavigationDrawer:
+                screen_manager: screen_manager
+                side_nav_drawer: side_nav_drawer
