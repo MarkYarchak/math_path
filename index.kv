@@ -1,0 +1,72 @@
+Screen:
+
+    NavigationLayout:
+
+        ScreenManager:
+
+            Screen:
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDToolbar:
+                        id: toolbar
+                        pos_hint: {"top": 1}
+                        elevation: 10
+                        title: "GraphMath"
+                        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+
+                        MDIconButton:
+                            id: icon
+                            icon: "brightness-4"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            on_press: app.change_theme_root()
+                    ScreenManager:
+                        id: screen_manager
+
+                        Screen:
+                            name: "scr 1"
+
+                            MDTabs:
+                                id:android_tabs
+                                on_tab_switch: app.on_tab_switch(*args)
+
+                                Tab:
+                                    # id: tab_theory
+                                    # name: 'theory'
+                                    text: "Теорія"
+                                    # MDCard:
+                                    #     padding: "5dp"
+                                    #     size_hint: None, None
+                                    #     size: "350dp", "400dp"
+                                    #     pos_hint: {"center_x": .5, "center_y": .4}
+
+                                Tab:
+                                    # id: tab_practice
+                                    # name: 'practice'
+                                    text: "Практика"
+                                    BoxLayout:
+                                        MDLabel:
+                                            text: "Title"
+                        Screen:
+                            name: "scr 2"
+
+                            MDLabel:
+                                text: "Screen 2"
+                                halign: "center"
+
+                    Widget:
+
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            ContentNavigationDrawer:
+                ScrollView:
+                    MDList:
+                        id: drawer_list
+                        OneLineListItem:
+                            text: "Лінійна діаграма"
+                            on_press:
+                                nav_drawer.set_state("close")
+                                screen_manager.current = "scr 2"

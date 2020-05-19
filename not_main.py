@@ -16,29 +16,7 @@ class ContentNavigationDrawer(BoxLayout):
 
 
 class Tab(FloatLayout, MDTabsBase):
-    '''Class implementing content for a tab.'''
     pass
-
-
-class SubjectItem:
-    def __init__(self, title, content, action):
-        self.title = title
-        self.content = content
-        self.action = action
-        pass
-
-
-class SubjectContent:
-    def __init__(self, text, diagram_plt, input_field):
-        self.text = text
-        self.diagram_plt = diagram_plt
-        self.input_field = input_field
-        pass
-
-
-class MatplotDiagram:
-    def __init__(self):
-       pass
 
 
 class Bootstrap(MDApp):
@@ -55,30 +33,10 @@ class Bootstrap(MDApp):
     def build(self):
         return Builder.load_string(KV)
 
-    subjects = [
-        SubjectItem(
-            "Лінійна діаграма",
-            SubjectContent("Description of subject 1", MatplotDiagram(), ""),
-            "src 1"
-            ),
-
-
-        SubjectItem(
-            "Гістограми",
-            SubjectContent("Description of subject 2", MatplotDiagram(), ""),
-            "src 2"
-            ),
-
-        SubjectItem(
-            "Кругові діаграми",
-            SubjectContent("Description of subject 3", MatplotDiagram(), ""),
-            "src 3"
-            )
-        ]
 
     def on_start(self):
-        for subject in self.subjects:
-            self.root.ids.drawer_list.add_widget(OneLineListItem(text=subject.title))  # Tab(text=f"Tab {i}")
+        # for subject in self.subjects:
+        #     self.root.ids.drawer_list.add_widget(OneLineListItem(text=subject.title))  # Tab(text=f"Tab {i}")
         pass
 
     def on_tab_switch(
