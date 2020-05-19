@@ -3,8 +3,9 @@ from kivymd.app import MDApp
 from kivy.properties import ObjectProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivymd.uix.tab import MDTabsBase
+from kivymd.uix.tab import MDTabsBase, MDTabs
 from kivymd.uix.list import OneLineListItem
+from kivy.uix.screenmanager import Screen
 
 from subjects import subjects
 
@@ -27,15 +28,40 @@ class GraphMath(MDApp):
         return Builder.load_string(KV)
 
     def on_start(self):
-        print(self)
-        for subject in subjects:  # , on_press=change_subject
-            self.root.ids.drawer_list.add_widget(OneLineListItem(text=subject.title))  # Tab(text=f"Tab {i}")
+        for subjectIndex in range(len(subjects)):
+            self.root.ids.screen_manager.add_widget(
+                Screen(id=f'screen {str(subjectIndex)}', name=subjects[subjectIndex].title)
+            )
+            self.root.ids.screen_manager.current = subjects[0].title
+            # iterable_screen = 'screen ' + str(subjectIndex)
+            # self.root.ids[iterable_screen].add_widget(
+            #     MDTabs=MDTabs(
+            #         on_tab_switch=self.on_tab_switch,
+            #         Tab=Tab(
+            #             name='theory',
+            #             text="Теорія"
+            #         ),
+            #         AnotherTab=Tab(
+            #             name='practice',
+            #             text="Практика",
+            #             BoxLayout(
+            #                 MDLabel=MDLabel(
+            #                     text="Title",
+            #                     halign="center",
+            #                 )
+            #             )
+            #         )
+            #     )
+            # )
+            self.root.ids.drawer_list.add_widget(
+                OneLineListItem(text=subjects[subjectIndex].title, on_press=self.change_subject)
+            )
         pass
 
-    def change_subject(self):
-        # print(data)
-        self.root.nav_drawer.set_state("close")
-        self.root.screen_manager.current = "scr 2"
+    def change_subject(self, list_item):
+        # list_item.
+        self.root.ids.nav_drawer.set_state("close")
+        self.root.ids.screen_manager.current = list_item.text
         pass
 
     def change_theme_root(self):
