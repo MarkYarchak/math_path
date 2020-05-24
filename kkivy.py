@@ -3,6 +3,7 @@ from kivymd.app import MDApp
 from kivy.properties import ObjectProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivymd.uix.label import MDLabel
 from kivymd.uix.tab import MDTabsBase, MDTabs
 from kivymd.uix.list import OneLineListItem
 from kivy.uix.screenmanager import Screen
@@ -37,39 +38,17 @@ class GraphMath(MDApp):
             self.root.ids.screen_manager.add_widget(iterable_screen)
             self.root.ids.screen_manager.current = subjects[0].title
             screen_tabs = MDTabs(on_tab_switch=self.on_tab_switch)
-            # theory_tab = Tab(name='theory', text="Теорія")
-            # practice_tab = Tab(name='practice', text="Практика")
-            # screen_tabs.add_widget(theory_tab)
-            # screen_tabs.add_widget(practice_tab)
+            theory_tab = Tab(text="Теорія")  # name='theory',
+            practice_tab = Tab(text="Практика")  # name='practice',
+            practice_page = BoxLayout()
+            simple_label = MDLabel(text=f"iterable_screen_id: {iterable_screen_id}", halign="center")
+            practice_page.add_widget(simple_label)
+            practice_tab.add_widget(practice_page)
+            screen_tabs.add_widget(theory_tab)
+            screen_tabs.add_widget(practice_tab)
+            screen_tabs.default_tab = 0
             iterable_screen.add_widget(screen_tabs)
 
-            # self.root.ids[iterable_screen_id].add_widget()
-            # BoxLayout(
-            #     MDLabel=MDLabel(
-            #         text="Title",
-            #         halign="center",
-            #     )
-            # )
-
-            # self.root.ids[iterable_screen_id].add_widget(
-            #     MDTabs(
-            #         on_tab_switch=self.on_tab_switch,
-            #         Tab(
-            #             name='theory',
-            #             text="Теорія"
-            #         ),
-            #         Tab(
-            #             name='practice',
-            #             text="Практика",
-            #             BoxLayout(
-            #                 MDLabel=MDLabel(
-            #                     text="Title",
-            #                     halign="center",
-            #                 )
-            #             )
-            #         )
-            #     )
-            # )
             self.root.ids.drawer_list.add_widget(
                 OneLineListItem(text=subjects[subjectIndex].title, on_press=self.change_subject)
             )
