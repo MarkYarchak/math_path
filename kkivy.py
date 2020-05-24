@@ -6,6 +6,9 @@ from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.tab import MDTabsBase, MDTabs
 from kivymd.uix.list import OneLineListItem
 from kivy.uix.screenmanager import Screen
+import matplotlib.pyplot as plt
+from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
+import numpy as np
 
 from subjects import subjects
 
@@ -29,19 +32,33 @@ class GraphMath(MDApp):
 
     def on_start(self):
         for subjectIndex in range(len(subjects)):
-            self.root.ids.screen_manager.add_widget(
-                Screen(id=f'screen {str(subjectIndex)}', name=subjects[subjectIndex].title)
-            )
+            iterable_screen_id = f'screen {str(subjectIndex)}'
+            iterable_screen = Screen(id=iterable_screen_id, name=subjects[subjectIndex].title)
+            self.root.ids.screen_manager.add_widget(iterable_screen)
             self.root.ids.screen_manager.current = subjects[0].title
-            # iterable_screen = 'screen ' + str(subjectIndex)
-            # self.root.ids[iterable_screen].add_widget(
-            #     MDTabs=MDTabs(
+            screen_tabs = MDTabs(on_tab_switch=self.on_tab_switch)
+            # theory_tab = Tab(name='theory', text="Теорія")
+            # practice_tab = Tab(name='practice', text="Практика")
+            # screen_tabs.add_widget(theory_tab)
+            # screen_tabs.add_widget(practice_tab)
+            iterable_screen.add_widget(screen_tabs)
+
+            # self.root.ids[iterable_screen_id].add_widget()
+            # BoxLayout(
+            #     MDLabel=MDLabel(
+            #         text="Title",
+            #         halign="center",
+            #     )
+            # )
+
+            # self.root.ids[iterable_screen_id].add_widget(
+            #     MDTabs(
             #         on_tab_switch=self.on_tab_switch,
-            #         Tab=Tab(
+            #         Tab(
             #             name='theory',
             #             text="Теорія"
             #         ),
-            #         AnotherTab=Tab(
+            #         Tab(
             #             name='practice',
             #             text="Практика",
             #             BoxLayout(
@@ -56,6 +73,7 @@ class GraphMath(MDApp):
             self.root.ids.drawer_list.add_widget(
                 OneLineListItem(text=subjects[subjectIndex].title, on_press=self.change_subject)
             )
+        self.root.ids.screen_manager.current = subjects[0].title
         pass
 
     def change_subject(self, list_item):
@@ -73,6 +91,16 @@ class GraphMath(MDApp):
     def on_tab_switch(
        self, instance_tabs, instance_tab, instance_tab_label, tab_text
     ):
+
+        x = np.linspace(-10, 9, 20)
+
+        y = x ** 3
+
+        plt.plot(x, y, 'b')
+        plt.xlabel('X axis')
+        plt.ylabel('Y axis')
+        plt.title('Cube Function')
+        plt.show()
         print("on_tab_switch")
 
 
