@@ -3,14 +3,12 @@ Screen:
     NavigationLayout:
 
         ScreenManager:
-
             Screen:
-
                 BoxLayout:
                     orientation: 'vertical'
 
                     MDToolbar:
-                        id: toolbar
+                        id: app_toolbar
                         pos_hint: {"top": 1}
                         elevation: 10
                         title: "GraphMath"
@@ -25,8 +23,6 @@ Screen:
                     ScreenManager:
                         id: screen_manager
 
-
-                    Widget:
 
         MDNavigationDrawer:
             id: nav_drawer

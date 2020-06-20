@@ -1,17 +1,14 @@
 
 class SubjectItem:
-    def __init__(self, title, content, action):
+    def __init__(self, title):
         self.title = title
-        self.content = content
-        self.action = action
         pass
 
 
 class SubjectContent:
-    def __init__(self, text, diagram_plt, input_field):
+    def __init__(self, text, diagram_plt, ):
         self.text = text
         self.diagram_plt = diagram_plt
-        self.input_field = input_field
         pass
 
 
@@ -22,8 +19,8 @@ class MatplotDiagram:
 
 subjects = [
     SubjectItem(
-        "Лінійна діаграма",
-        SubjectContent("Description of subject 1", MatplotDiagram(), ""),
+        title="Лінійна діаграма",
+        SubjectContent("Description of subject 1", MatplotDiagram()),
         "src 1"
         ),
 
